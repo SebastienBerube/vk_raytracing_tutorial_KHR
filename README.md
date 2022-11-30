@@ -1,3 +1,6 @@
+Forked repo from nvpro-samples.
+The goal of this fork is to play in the code, to learn a little.
+
 ![logo](http://nvidianews.nvidia.com/_ir/219/20157/NV_Designworks_logo_horizontal_greenblack.png)
 
 # NVIDIA Vulkan Ray Tracing Tutorials
