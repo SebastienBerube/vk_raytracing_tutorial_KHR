@@ -35,7 +35,8 @@ struct AoControl
   int   rtao_samples{4};         // Nb samples at each iteration
   float rtao_power{3.0f};        // Darkness is stronger for more hits
   int   rtao_distance_based{1};  // Attenuate based on distance
-  int   frame{0};                // Current frame
+  int   aoframe{0};              // Current frame since the ao was reset (for this point of view)
+  int   frame{0};                // Current frame since the start of the application
   int   max_samples{100'000};    // Max samples before it stops
 };
 
@@ -163,5 +164,6 @@ public:
   // #Tuto_jitter_cam
   void updateFrame();
   void resetFrame();
+  int  m_aoframe{0};
   int  m_frame{0};
 };

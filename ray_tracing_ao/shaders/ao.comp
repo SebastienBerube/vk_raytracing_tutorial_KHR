@@ -41,6 +41,7 @@ layout(push_constant) uniform params_
   int   rtao_samples;
   float rtao_power;
   int   rtao_distance_based;
+  int   aoframe_number;
   int   frame_number;
   int   max_samples;
 };
@@ -128,7 +129,7 @@ void main()
 
 
   // Writting out the AO
-  if(frame_number == 0)
+  if(aoframe_number == 0)
   {
     imageStore(outImage, ivec2(gl_GlobalInvocationID.xy), vec4(occlusion));
   }
@@ -136,7 +137,7 @@ void main()
   {
     // Accumulating over time
     float old_ao     = imageLoad(outImage, ivec2(gl_GlobalInvocationID.xy)).x;
-    float new_result = mix(old_ao, occlusion, 1.0f / float(frame_number + 1));
+    float new_result = mix(old_ao, occlusion, 1.0f / float(aoframe_number + 1));
     imageStore(outImage, ivec2(gl_GlobalInvocationID.xy), vec4(new_result));
   }
 }

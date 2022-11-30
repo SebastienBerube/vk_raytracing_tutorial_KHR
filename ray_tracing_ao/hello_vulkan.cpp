@@ -791,7 +791,7 @@ void HelloVulkan::runCompute(VkCommandBuffer cmdBuf, AoControl& aoControl)
   updateFrame();
 
   // Stop by default after 100'000 samples
-  if(m_frame * aoControl.rtao_samples > aoControl.max_samples)
+  if(m_aoframe * aoControl.rtao_samples > aoControl.max_samples)
     return;
 
   m_debug.beginLabel(cmdBuf, "Compute");
@@ -818,6 +818,8 @@ void HelloVulkan::runCompute(VkCommandBuffer cmdBuf, AoControl& aoControl)
 
   // Sending the push constant information
   aoControl.frame = m_frame;
+  aoControl.aoframe = m_aoframe;
+
   vkCmdPushConstants(cmdBuf, m_compPipelineLayout, VK_SHADER_STAGE_COMPUTE_BIT, 0, sizeof(AoControl), &aoControl);
 
   // Dispatching the shader
@@ -856,9 +858,10 @@ void HelloVulkan::updateFrame()
   }
 
   m_frame++;
+  m_aoframe++;
 }
 
 void HelloVulkan::resetFrame()
 {
-  m_frame = -1;
+  m_aoframe = -1;
 }
